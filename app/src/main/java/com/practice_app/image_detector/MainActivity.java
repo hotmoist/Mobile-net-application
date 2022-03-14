@@ -2,6 +2,7 @@ package com.practice_app.image_detector;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.Context;
@@ -130,6 +131,13 @@ public class MainActivity extends AppCompatActivity
 
     protected void setFragment() {
         String cameraID = chooseCamera();
+
+        Fragment fragment;
+        if(useCamera2API){
+            // 카메라를 사용하기 위한 fragment 선언
+//            CameraConnectionFragement camera2Fragment =
+        }
+
     }
 
     private boolean hasPermission() {
