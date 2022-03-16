@@ -372,6 +372,24 @@ public class CameraConnectionFragment extends Fragment {
         textureView.setTransform(matrix);
     }
 
+    /** {@link Handler}와 background thread 시작 */
+    private void startBackgroundThread(){
+        backgroundThread = new HandlerThread("ImageListener");
+        backgroundThread.start();
+        backgroundHandler = new Handler(backgroundThread.getLooper());
+    }
+
+    /** {@link Handler}와  background thread 중단 */
+    private void stopBackgroundThread() {
+        backgroundThread.quitSafely();
+        try{
+            backgroundThread.join();
+            backgroundThread = null;
+            backgroundHandler = null;
+        } catch (final InterruptedException e){
+            LOGGER.e(e, "예외 발생");
+        }
+    }
 
     /**
      * Callback for Activities to use to initialize their data once the selected preview size is
