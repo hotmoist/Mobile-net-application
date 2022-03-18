@@ -391,6 +391,28 @@ public class CameraConnectionFragment extends Fragment {
         }
     }
 
+    /** 카메라 preview를 위한 {@link CameraCaptureSession} 생성 */
+    private  void createCameraPreviewSession(){
+        try{
+            final SurfaceTexture texture = textureView.getSurfaceTexture();
+            assert texture != null;
+
+            // 원하는 preview 사이즈에 맞추어 buffer의 사이즈 지정
+            texture.setDefaultBufferSize(previewSize.getWidth(), previewSize.getHeight());
+
+            // preview 시작을 위한 output surface 정의
+            final Surface surface = new Surface(texture);
+
+            // CaptureRequest.Builder
+
+
+
+        }catch(){
+
+        }
+    }
+
+
     /**
      * Callback for Activities to use to initialize their data once the selected preview size is
      * known.
