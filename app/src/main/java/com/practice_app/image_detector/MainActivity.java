@@ -1,9 +1,8 @@
 package com.practice_app.image_detector;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
+import android.app.Fragment;
 
 import android.Manifest;
 import android.content.Context;
@@ -25,9 +24,8 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.practice_app.image_detector.env.Logger;
-import com.practice_app.image_detector.env.CameraConnectionFragment;
 
-public class MainActivity extends AppCompatActivity
+public abstract class MainActivity extends AppCompatActivity
         implements ImageReader.OnImageAvailableListener,
         Camera.PreviewCallback,
         View.OnClickListener,
@@ -88,9 +86,9 @@ public class MainActivity extends AppCompatActivity
     private boolean isHardwareLevelSupported(
 
             CameraCharacteristics characteristics, int requiredLevel
-    ){
+    ) {
         int deviceLevel = characteristics.get(CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL);
-        if (deviceLevel == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY){
+        if (deviceLevel == CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY) {
             return requiredLevel == deviceLevel;
         }
 
@@ -136,7 +134,7 @@ public class MainActivity extends AppCompatActivity
         String cameraId = chooseCamera();
 
         Fragment fragment;
-        if(useCamera2API){
+        if (useCamera2API) {
             // 카메라를 사용하기 위한 fragment 선언
             CameraConnectionFragment camera2Fragment =
                     CameraConnectionFragment.newInstance(
@@ -145,18 +143,18 @@ public class MainActivity extends AppCompatActivity
                                 public void onPreviewSizeChosen(final Size size, final int rotation) {
                                     previewHeight = size.getHeight();
                                     previewWidth = size.getWidth();
-//                                    MainActivity.this.onPreviewSizeChosen(size, rotation);
+                                    MainActivity.this.onPreviewSizeChosen(size, rotation);
                                 }
                             },
-//                            this,
-//                            getLayoutId(),
-//                            getDesiredPreviewFrameSize()
-                    );
+                            this,
+                            getLayoutId(),
+                            getDesiredPreviewFrameSize());
+
             camera2Fragment.setCamera(cameraId);
-//            fragment = camera2Fragment;
-        }else{
-//            fragment =
-//                    new LegacyCameraConnectionFragment(this, getLayoutId(), getDesiredPreviewFrameSize());
+            fragment = camera2Fragment;
+        } else {
+            fragment =
+                    new LegacyCameraConnectionFragment(this, getLayoutId(), getDesiredPreviewFrameSize());
         }
 
     }
@@ -164,18 +162,18 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == PERMISSIONS_REQUEST){
-            if (allPermissionGranted(grantResults)){
+        if (requestCode == PERMISSIONS_REQUEST) {
+            if (allPermissionGranted(grantResults)) {
                 setFragment();
-            }else{
+            } else {
                 requestPermission();
             }
         }
     }
 
-    private static boolean allPermissionGranted(final int[] grantResults){
-        for(int result : grantResults){
-            if(result != PackageManager.PERMISSION_GRANTED){
+    private static boolean allPermissionGranted(final int[] grantResults) {
+        for (int result : grantResults) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
         }
@@ -204,13 +202,13 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-//    protected abstract void processImage();
-//
-//    protected abstract void onPreviewSizeChosen(final Size size, final int rotation);
-//
-//    protected abstract int getLayoutId();
-//
-//    protected abstract Size getDesiredPreviewFrameSize();
-//
-//    protected abstract void onInferenceConfigurationChanged();
+    protected abstract void processImage();
+
+    protected abstract void onPreviewSizeChosen(final Size size, final int rotation);
+
+    protected abstract int getLayoutId();
+
+    protected abstract Size getDesiredPreviewFrameSize();
+
+    protected abstract void onInferenceConfigurationChanged();
 }
