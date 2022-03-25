@@ -1,6 +1,5 @@
-package com.practice_app.image_detector.env;
+package com.practice_app.image_detector;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -9,7 +8,6 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
@@ -20,14 +18,12 @@ import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
-import android.hardware.camera2.CaptureFailure;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.CaptureResult;
 import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.ImageReader;
 import android.media.ImageReader.OnImageAvailableListener;
-import android.media.browse.MediaBrowser;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -42,8 +38,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 
-import com.practice_app.image_detector.R;
 import com.practice_app.image_detector.customView.AutoFitTextureView;
+import com.practice_app.image_detector.env.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
